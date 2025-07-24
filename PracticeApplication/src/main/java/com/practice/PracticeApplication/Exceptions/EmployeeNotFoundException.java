@@ -1,4 +1,4 @@
-package com.practice.PracticeApplication.GlobalExceptions;
+package com.practice.PracticeApplication.Exceptions;
 
 public class EmployeeNotFoundException extends RuntimeException{
     public EmployeeNotFoundException(String process, long id){
