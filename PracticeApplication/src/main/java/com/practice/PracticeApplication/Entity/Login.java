@@ -20,8 +20,10 @@ public class Login {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id",
+            nullable = false,
+            unique = true)
     @JsonBackReference
     private Users user;
 
@@ -35,12 +37,12 @@ public class Login {
     private String roles;
 
     @Column(name = "is_active"
-//            , nullable = false
+            , nullable = false
     )
     private boolean isActive = true;
 
     @Column(name = "is_locked"
-//            , nullable = false
+            , nullable = false
     )
     private boolean isLocked = false;
 

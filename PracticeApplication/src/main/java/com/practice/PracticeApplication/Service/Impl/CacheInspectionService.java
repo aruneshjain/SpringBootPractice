@@ -1,4 +1,4 @@
-package com.practice.PracticeApplication.Service;
+package com.practice.PracticeApplication.Service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
