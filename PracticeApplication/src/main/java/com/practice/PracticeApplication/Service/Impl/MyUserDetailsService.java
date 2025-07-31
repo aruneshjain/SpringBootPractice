@@ -1,4 +1,4 @@
-package com.practice.PracticeApplication.Service;
+package com.practice.PracticeApplication.Service.Impl;
 
 import com.practice.PracticeApplication.Entity.Login;
 import com.practice.PracticeApplication.Entity.UserPrincipal;

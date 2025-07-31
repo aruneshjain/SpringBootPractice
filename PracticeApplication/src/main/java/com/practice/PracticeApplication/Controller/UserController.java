@@ -2,7 +2,7 @@ package com.practice.PracticeApplication.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.PracticeApplication.Entity.Users;
-import com.practice.PracticeApplication.Service.CacheInspectionService;
+import com.practice.PracticeApplication.Service.Impl.CacheInspectionService;
 import com.practice.PracticeApplication.Service.Impl.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
