@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,10 +56,14 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public ResponseEntity<String> loginUser(HashMap<String, String> details) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(details.get("username"),details.get("password")));
-        if(authentication.isAuthenticated())
-            return jwtService.generateToken(details.get("username"));
-        return new ResponseEntity<>("User Log in fail : Please Try Again", HttpStatus.FORBIDDEN);
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(details.get("username"), details.get("password")));
+            if(authentication.isAuthenticated())
+                return jwtService.generateToken(details.get("username"));
+            return new ResponseEntity<>("User Log in fail : Please Try Again", HttpStatus.FORBIDDEN);
+        }catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage() + " : Invalid Username or Password ",HttpStatus.FORBIDDEN);
+        }
     }
 }

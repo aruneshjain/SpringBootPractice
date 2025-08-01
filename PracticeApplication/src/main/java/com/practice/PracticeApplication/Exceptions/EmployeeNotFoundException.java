@@ -8,5 +8,4 @@ public class EmployeeNotFoundException extends RuntimeException{
                 id + "\nFailed : " +
                 "Employee is not available for the given ID.");
     }
-
 }

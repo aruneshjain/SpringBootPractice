@@ -1,7 +1,11 @@
 package com.practice.PracticeApplication.Config;
 
+import com.practice.PracticeApplication.Exceptions.JwtInvalid;
 import com.practice.PracticeApplication.Service.Impl.JwtService;
 import com.practice.PracticeApplication.Service.Impl.MyUserDetailsService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String username = null;
-
+        try{
         if(authHeader != null && authHeader.startsWith("Bearer ")){
                 token = authHeader.substring(7);
                 username = jwtService.extractUserName(token);
@@ -51,5 +55,16 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request,response);
+
+    } catch (ExpiredJwtException ex) {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("Token expired : ");
+        response.getWriter().flush();
+    } catch (JwtException | IllegalArgumentException ex) {
+        // Handle other token-related exceptions like malformed or unsupported JWTs
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("Invalid token");
+        response.getWriter().flush();
+    }
     }
 }

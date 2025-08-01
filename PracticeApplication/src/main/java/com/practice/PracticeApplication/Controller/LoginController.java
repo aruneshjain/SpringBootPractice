@@ -24,7 +24,6 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody HashMap<String,String> details)
     {
-        System.out.println("login start");
         return loginService.loginUser(details);
     }
 
